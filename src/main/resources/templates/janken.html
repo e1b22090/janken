@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>じゃんけん</title>
+</head>
+
+<body>
+  <h1>Janken GAME!</h1>
+  <p>Hi [[${username}]]</p>
+
+  <a href="/janken/play?hand=グー">グー</a>
+  <a href="/janken/play?hand=チョキ">チョキ</a>
+  <a href="/janken/play?hand=パー">パー</a>
+
+  <div>
+    <h3>結果</h3>
+    <p>あなたの手: [[${yourHand}]]</p>
+    <p>相手の手: グー</p>
+    <p>結果: [[${result}]]</p>
+  </div>
+</body>
+
+</html>
