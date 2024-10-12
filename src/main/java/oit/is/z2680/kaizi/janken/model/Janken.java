@@ -1,56 +1,40 @@
 package oit.is.z2680.kaizi.janken.model;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Janken {
-  private String playerHand;
+  private String yourHand;
   private String cpuHand;
   private String result;
 
-  public String getPlayerHand() {
-    return playerHand;
+  public Janken() {
+    this.cpuHand = "グー";
   }
 
-  public void setPlayerHand(String playerHand) {
-    this.playerHand = playerHand;
+  public void setYourHand(String yourHand) {
+    this.yourHand = yourHand;
+    this.result = this.judge();
+  }
+
+  public String getYourHand() {
+    return this.yourHand;
   }
 
   public String getCpuHand() {
-    return cpuHand;
+    return this.cpuHand;
   }
 
   public String getResult() {
-    return result;
+    return this.result;
   }
 
-  // CPUが常にグーを出す例
-  public void judge() {
-    this.cpuHand = "グー"; // CPUは常にグーを出す
-    if (playerHand == null) {
-      this.result = "エラー: 手が選択されていません";
-      return;
-    }
-
-    if (playerHand.equals("グー")) {
-      this.result = "引き分け";
-    } else if (playerHand.equals("チョキ")) {
-      this.result = "あなたの負け";
-    } else if (playerHand.equals("パー")) {
-      this.result = "あなたの勝ち";
-    }
-  }
-
-  // 引数を受け取るように定義
-  public String judge(String yourHand) {
-    String cpuHand = "グー"; // CPUの手は常にグー
-    if (yourHand.equals(cpuHand)) {
+  private String judge() {
+    if (this.yourHand.equals(this.cpuHand)) {
       return "引き分け";
-    } else if (yourHand.equals("チョキ")) {
-      return "負け";
-    } else if (yourHand.equals("パー")) {
-      return "勝ち";
+    } else if (this.yourHand.equals("チョキ")) {
+      return "あなたの負け";
+    } else if (this.yourHand.equals("パー")) {
+      return "あなたの勝ち";
+    } else {
+      return "無効な手です"; // 無効な手が選ばれた場合のメッセージ
     }
-    return "不正な手";
   }
 }
