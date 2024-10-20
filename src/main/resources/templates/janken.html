@@ -1,25 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
 
 <head>
-  <title>じゃんけん</title>
+  <meta charset="utf-8">
+  <title>Janken</title>
 </head>
 
 <body>
-  <h1>Janken GAME!</h1>
-  <p>エントリー</p>
-  <ul>
-    <li th:each="user : ${users}" th:text="${user}">ユーザー名</li>
-  </ul>
-  <a href="/janken/result?hand=グー">グー</a>
-  <a href="/janken/result?hand=チョキ">チョキ</a>
-  <a href="/janken/result?hand=パー">パー</a>
-  <div>
-    <p>あなたの手: [[${yourHand}]]</p>
-    <p>相手の手: [[${cpuHand}]]</p>
-    <p>結果: [[${result}]]</p>
-  </div>
   <a href="/logout">ログアウト</a>
+  <h1>Janken GAME!</h1>
+  <p>Hi <span sec:authentication="name"></span></p>
+  <h2>エントリー</h2>
+  <ul>
+    <li th:each="user : ${users}">
+      <a th:href="@{/match(id=${user.id})}"> [[${user.name}]]</a>
+    </li>
+  </ul>
+  <h2>試合結果</h2>
+
+  <div th:each="match : ${matches}">
+    <tr>
+      <td>id:[[${match.id}]]</td>
+      <td>user1:[[${match.user1}]]</td>
+      <td></td>user2:[[${match.user2}]]</td>
+      <td>user1の手:[[${match.user1Hand}]]</td>
+      <td>user2の手:[[${match.user2Hand}]]</td>
+    </tr>
+
 </body>
 
 </html>

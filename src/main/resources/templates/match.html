@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Match</title>
+</head>
+
+<body>
+  <a href="/logout">ログアウト</a>
+  <h1>Match</h1>
+  <h2 th:text="${loggedInUser} + ' v.s. ' + ${opponent}"></h2>
+  <table>
+    <tr>
+      <td><a th:href="@{/match/fight(userHand='Gu', opponentId=${opponentId})}">ぐー</a></td>
+      <td><a th:href="@{/match/fight(userHand='Choki', opponentId=${opponentId})}">ちょき</a></td>
+      <td><a th:href="@{/match/fight(userHand='Pa', opponentId=${opponentId})}">ぱー</a></td>
+    </tr>
+  </table>
+
+  <div th:if="${userHand != null}">
+    <p>あなたの手 <span th:text="${userHand}"></span></p>
+    <p>相手の手 <span th:text="${opponentHand}"></span></p>
+    <p>結果 <span th:text="${result}"></span></p>
+  </div>
+  <a href="/janken">もどる</a>
+</body>
+
+
+</html>
