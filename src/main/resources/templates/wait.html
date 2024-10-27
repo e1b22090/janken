@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Wait</title>
+  <script>
+    // ユーザーIDを取得するためのJavaScript
+    const userId = /*[[${loggedInUserId}]]*/ 0; // ThymeleafでログインユーザーIDを埋め込む
+
+    // SSE（Server-Sent Events）を設定
+    const eventSource = new EventSource('/your-endpoint-for-sse?id=' + userId);
+
+    eventSource.onmessage = function (event) {
+      const matches = JSON.parse(event.data);
+      if (matches.length > 0) {
+        // 結果がある場合の処理
+        displayResults(matches);
+      }
+    };
+
+    function displayResults(matches) {
+      const resultContainer = document.createElement('div');
+      resultContainer.innerHTML = `<h2>試合結果</h2>`;
+      matches.forEach(match => {
+        resultContainer.innerHTML += `<p>Match; id: ${match.id} user1: ${match.user1} user2: ${match.user2} user1Hand: ${match.user1Hand} user2Hand: ${match.user2Hand}</p>`;
+      });
+      resultContainer.innerHTML += `<a href="/your-return-page">[戻る]</a>`;
+      document.body.appendChild(resultContainer);
+    }
+  </script>
+</head>
+
+<body>
+  <h1>相手の手を待ってます</h1>
+  <p>Hi <span sec:authentication="name"></span></p>
+  <tbody th:each="match : ${matches}">
+    <tr>
+      <h2>結果</h2>
+      <td>id:[[${match.id}]]</td>
+      <td>user1:[[${match.user1}]]</td>
+      <td></td>user2:[[${match.user2}]]</td>
+      <td>user1の手:[[${match.user1Hand}]]</td>
+      <td>user2の手:[[${match.user2Hand}]]</td>
+    </tr>
+
+    <a href="/janken">もどる</a>
+</body>
+
+</html>
